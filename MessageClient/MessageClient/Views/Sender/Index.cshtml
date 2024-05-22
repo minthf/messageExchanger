@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Dtos.MessageOutDto
+
+<div class="text-center">
+    <h1 class="display-4">Sender</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form method="post">
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <input type="text" id="content" name="content" class="form-control" asp-for="@Model.Content" required="true" maxlength="128"/>
+            <input type="number" id="serialnumber" name="serialnumber" class="form-control" asp-for="@Model.SerialNumber" required="true" />
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>

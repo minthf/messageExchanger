@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+
+  messageServer:
+    image: minthf/messageserver
+    container_name: messageServer
+    ports:
+      - "7120:8080"
+      - "7121:8081"
+    depends_on:
+      - database
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+
+  messageClient:
+    image: minthf/messageclient
+    container_name: messageClient
+    ports:
+      - "6120:8080"
+      - "6121:8081"
+    depends_on:
+      - messageServer
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production

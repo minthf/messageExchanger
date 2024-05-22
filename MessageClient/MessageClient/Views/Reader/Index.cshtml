@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Receive Messages";
+}
+
+<h1>Receive Messages</h1>
+
+<div id="connectionStatus" class="alert alert-success" style="display: none;">
+    Connection Active
+</div>
+
+<ul id="messagesList"></ul>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder().withUrl("@ViewData["MessageHubUrl"]/messageHub").build();
+        connection.on("ReceiveMessage", (message) => {
+            const li = document.createElement("li");
+            li.textContent = `Id(${message.id})  Date(${message.date}) SerialNumber(${message.serialNumber}): ${message.content}`;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        connection.start().then(() => {
+            console.log("SignalR connected.");
+            document.getElementById("connectionStatus").style.display = "block";
+        }).catch((err) => {
+            console.error(err);
+            alert("Failed to connect to SignalR Hub. Please try refreshing the page later.");
+        });
+
+        connection.onclose(() => {
+            console.log("SignalR connection closed.");
+            document.getElementById("connectionStatus").style.display = "none";
+            alert("SignalR connection closed. Please try refreshing the page later.");
+        });
+
+        connection.onreconnected(() => {
+            console.log("SignalR reconnected.");
+            document.getElementById("connectionStatus").style.display = "block";
+        });
+    </script>
+}
