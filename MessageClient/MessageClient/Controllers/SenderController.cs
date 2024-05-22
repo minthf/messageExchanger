@@ -18,8 +18,6 @@ public class SenderController(HttpClient httpClient, IConfiguration configuratio
     {
         try
         {
-            var test = $"{_backEndUrl}/Message";
-            Console.WriteLine(test);
             var response = await _httpClient.PostAsJsonAsync($"{_backEndUrl}/Message", dto);
             if (!response.IsSuccessStatusCode)
             {
