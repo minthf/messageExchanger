@@ -1,32 +1,32 @@
 # Message Exchanger
-This project is designed for exchanging messages
+This project is designed for exchanging messages.
 
-## Architecture of web application
-The project consists of 3 parts:
- - MessageServer
- - MessageClient
- - Database
+## Architecture of Web Application
+The project consists of three parts:
+- MessageServer
+- MessageClient
+- Database
 
 ### MessageServer
-MessageServer is WebAPI ASP.NET application.
-Architecture of project:
-- Domain: contains of entities and interfaces of repositories.
-- Infrastructure: contains of implementation of repositories.
-- Application: contains of services.
-- MessageServer: contains of controllers and configuration of application.
+MessageServer is a WebAPI ASP.NET application.
+The architecture of the project is as follows:
+- Domain: Contains entities and repository interfaces.
+- Infrastructure: Contains implementations of repositories.
+- Application: Contains services.
+- MessageServer: Contains controllers and application configuration.
 
 ### MessageClient
-MessageClient is ASP.NET MVC project. It represents a client for working with the server,
-There is 3 controllers which represets every client.
-- Sender: sends messages to the server.
-- Reader: reads messages in real time using SignalR.
-- ReaderByDate: reads messages from the server over a certain period of time.
+MessageClient is an ASP.NET MVC project. It represents a client for working with the server.
+There are three controllers, each representing a different client function:
+- Sender: Sends messages to the server.
+- Reader: Reads messages in real time using SignalR.
+- ReaderByDate: Reads messages from the server over a specified period of time.
 
 ### Database
-The database chosen was PostgreSQL.
-If you want to change database, you need to rewrite queries in MessageServer repository and change docker-compose file.
+The chosen database is PostgreSQL.
+If you want to change the database, you need to rewrite the queries in the MessageServer repository and modify the docker-compose file accordingly.
 
-## Running application
-There is docker-compose file, which uses images from docker hub, so you can get only **docker-compose.yaml** file and folder **initdb** with inital script for database, to run this application.
-Make sure that ports which are in docker-compose.yaml are available.
-If you will run this application locally you don`t need to change SignalRUrl in MessageClient appsettigns.json file. But if you want to deploy it on remote machine, you need to change it to your host url.
+## Running the Application
+There is a docker-compose file that uses images from Docker Hub. You only need the **docker-compose.yaml** file and the **initdb** folder with the initial script for the database to run this application.
+Make sure the ports specified in the docker-compose.yaml file are available.
+If you run this application locally, you don't need to change the SignalRUrl in the MessageClient's appsettings.json file. However, if you want to deploy it on a remote machine, you need to update it with your host URL.
